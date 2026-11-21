@@ -1,45 +1,14 @@
-# Entorno de virtualización Python
+# TP Integrador - Automatización de Redes con Python y API REST
 
-# Pasos de instalación en Linux:
+Este repositorio contiene los scripts de automatización en Python utilizados para la interacción con la API REST del Cisco Packet Tracer Network Controller en el marco del Trabajo Práctico Integrador.
 
-## 1. Clonación del proyecto
+## Contenido del Repositorio
 
-Desde la terminal ejecutar:
+Los scripts se encuentran en la carpeta `src/` 
 
-**git clone** <URL_del_repositorio> <nombre_de_la_carpeta_de_destino>
+1. **`01_get-ticket.py`**: Solicita y obtiene el ticket de autenticación (`serviceTicket`) mediante una petición HTTP POST al endpoint `/api/v1/ticket`.
+2. **`02_get-network-device.py`**: Consulta y despliega el inventario de dispositivos de infraestructura (routers y switches) registrados en el controlador desde el endpoint `/api/v1/network-device`.
+3. **`03_get-host.py`**: Recupera el listado completo de hosts finales conectados a la red mediante una solicitud HTTP GET al endpoint `/api/v1/host`.
+4. **`04_tabulate.py`**: Integra la autenticación automática y despliega en tablas formateadas en consola la información consolidada de infraestructura y hosts finales.
+5. **`05_vlan_host_inventory.py` (Script Propio)**: Script desarrollado por el grupo que realiza la clasificación automática de los hosts finales agrupándolos según su dirección IP dentro de las VLANs y subredes definidas en la topología corporativa. Utiliza las librerías nativas de Python (`urllib.request` y `json`) para interactuar con el controlador.
 
-Luego ejecutar **cd** <nombre_de_la_carpeta_de_destino>. Esta carpeta será la raíz de nuestro proyecto en Python.
-
-## 2. Creación del entorno virtual
-
-Supongamos que el nombre que le damos al entorno virtual es **cisco**, entonces se creará una carpeta **cisco** con todas las librerías y dependencias necesarias paea nuestro proyecto. 
-
-La manera de realizarlo es la siguiente:
-
-# python3 -m venv <nombre_del_entorno>
-Ejemplo: python3 -m venv cisco
-
-Para activar el entorno escribimos **source cisco/bin/activate**, en la carpeta raíz del proyecto. El nombre del entorno virtual aparecerá entre paréntesis ().
-
-## 3. Instalación de las dependencias, en este caso las librerías requests y tabulate
-
-En la carpeta raíz de nuestro proyecto y dentro del entorno virtual escribimos: **pip install -r requirements.txt**
-
-## 4. Selección del intérprete Python para nuestro entorno virtual
-
-<img width="881" height="118" alt="image" src="https://github.com/user-attachments/assets/18c41d8e-d338-48b6-953c-b2499c57319f" />
-
-<img width="736" height="412" alt="image" src="https://github.com/user-attachments/assets/2a795fcd-2cf8-47ef-a5a6-d21e09ce967f" />
-
-Tal como se ve en la figura seleccionamos Python 3.10.12 (cisco) que se mostrará como entorno recomendado.
-
-## 5. Desactivación del entorno virtual
-
-Simplemente escribimos en la línea de comandos: **deactivate**
-
-
-
-## Antes de ejecutar los scripts
-
-- **Credenciales del controlador:** los scripts usan el usuario `cisco` y la clave `cisco123!`. Si en tu Network Controller creaste otro usuario, cambialos en `01_get-ticket.py` y en `04_tabulate.py`.
-- **Ticket (X-Auth-Token):** `02_get-network-device.py` y `03_get-host.py` traen escrito un ticket de ejemplo que **no va a funcionar** en tu Packet Tracer, porque el controlador genera uno nuevo en cada sesión y vence. Ejecutá primero `01_get-ticket.py`, copiá el ticket que muestra y reemplazalo en el header `X-Auth-Token` de esos dos scripts. `04_tabulate.py` no necesita este paso: pide el ticket solo.
